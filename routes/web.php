@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/adminpanel', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
-Route::get('/casinoplay', function () {
-    return view('welcome');
-});
+Route::get('/copyunicallink', function () {  return view('welcome'); });
+Route::get('/deactivationunicallink', function () {  return view('welcome'); });
+Route::get('/imfeelinglucky', function () {  return view('welcome'); });
+
+Route::get('/History', function () {  return view('welcome'); });
+
+Route::get('/casinoplay', function () {  return view('welcome'); });
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
