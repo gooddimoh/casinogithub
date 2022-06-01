@@ -14,20 +14,26 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/adminpanel', function () {
-    return view('welcome');
-})->middleware('auth');
-
-Route::get('/copyunicallink', function () {  return view('welcome'); });
-Route::get('/deactivationunicallink', function () {  return view('welcome'); });
-Route::get('/imfeelinglucky', function () {  return view('welcome'); });
-
-Route::get('/History', function () {  return view('welcome'); });
-
-Route::get('/casinoplay', function () {  return view('welcome'); });
-
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware([\App\Http\Middleware\Authenticate::class])->group(function () {
+    Route::get('/', [\App\Http\Controllers\AdminPanelController::class, 'index'])->middleware('auth');
+    Route::get('/adminpanel', [\App\Http\Controllers\AdminPanelController::class, 'index'])->middleware('auth');
+    Route::get('/adminpanel/listofallusers/', [\App\Http\Controllers\AdminPanelController::class, 'listofallusers'])->middleware('auth');
+    Route::get('/adminpanel/user/edit/', [\App\Http\Controllers\AdminPanelController::class, 'index'])->middleware('auth');
+    Route::get('/adminpanel/user/create/', [\App\Http\Controllers\AdminPanelController::class, 'index'])->middleware('auth');
+    Route::get('/adminpanel/user/delete/', [\App\Http\Controllers\AdminPanelController::class, 'index'])->middleware('auth');
 });
+Route::get('/copyunicallink', [\App\Http\Controllers\CasinoDashboardController::class, 'index']);
+Route::get('/deactivationunicallink', [\App\Http\Controllers\CasinoDashboardController::class, 'index']);
+Route::get('/imfeelinglucky', [\App\Http\Controllers\CasinoDashboardController::class, 'index']);
+Route::get('/History', [\App\Http\Controllers\CasinoDashboardController::class, 'index']);
+Route::get('/casinoplay', [\App\Http\Controllers\CasinoDashboardController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\CasinoDashboardController::class, 'index']);
 
+Route::get('/login', [\App\Http\Controllers\CostumeAuthentificationController::class, 'login']);
+Route::get('/registration', [\App\Http\Controllers\CostumeAuthentificationController::class, 'registration']);
 
+Auth::routes(['login', 'registration']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
