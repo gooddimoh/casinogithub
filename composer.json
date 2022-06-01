@@ -50,7 +50,8 @@
             "composer install",
             "npm install",
             "php artisan clear-compiled",
-            "chmod -R 777 public/"
+            "chmod -R 777 public/",
+            "composer install"
         ]
     },
     "extra": {
